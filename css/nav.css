@@ -1,0 +1,24 @@
+/* NAV */
+#quebecor-nav .navbar
+{
+	font-family: 'Whitney SSm A', 'Whitney SSm B';
+	font-weight: 500;
+	font-style: normal;
+	font-size: 10px;
+	margin: 0;
+
+	/* Square corners */
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	-khtml-border-radius: 0;
+	border-radius: 0;
+}
+
+div#quebecor-nav .navbar li {
+}
+
+div#quebecor-nav .navbar li a {
+	padding: 12px 8px;
+	line-height: 20px;
+	margin-top: 4px;
+}

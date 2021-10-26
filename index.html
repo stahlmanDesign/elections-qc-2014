@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    	<!-- We advise mobile browser to leave the page unscaled; If scaling is
+		neccessary, we will do it in the canvas element itself.
+		Also make sure to hide address bar and navigation buttons and make the
+		status bar transparent on iOS -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	
+	<!-- for Google -->
+	<meta name="description" content="Élections Québec 2014 : Amusons-nous: un jeu vidéo avec les chefs de parti" />
+	<meta name="keywords" content="Élections, Québec, 2014" />
+	<meta name="author" content="Justin Stahlman" />
+	<meta name="application-name" content="Élections Québec 2014 : Amusons-nous" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!--meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" /-->
+
+	<!-- for Facebook -->
+	<meta property="og:title" content="Élections Québec 2014 : Amusons-nous" />
+	<meta property="og:type" content="article" />
+	<meta property="og:image" content="http://www1.journaldemontreal.com/2014/04/jeu/img/preview.png" />
+	<meta property="og:url" content="http://www1.journaldemontreal.com/2014/04/jeu/"/>
+	<meta property="og:description" content="Un jeu vidéo avec les chefs de parti" />
+	<meta property="og:locale" content="fr_CA" />            <!-- Default -->
+	<meta property="og:locale:alternate" content="fr_FR" />  <!-- French -->
+	<meta property="og:site_name" content="Le Journal de Montréal"/>
+
+	<!-- for Twitter -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="Élections Québec 2014 : Amusons-nous" />
+	<meta name="twitter:description" content="Un jeu vidéo avec les chefs de parti" />
+	<meta name="twitter:image" content="http://www1.journaldemontreal.com/2014/04/jeu/img/preview.png" />
+	
+	
+	<title>Élections Québec 2014 : Amusons-nous</title>
+	
+	<!-- JDM fonts 2013 -->
+	<link rel="stylesheet" type="text/css" href="http://infojdem.com/fonts/62601/D801379A6C0EFF6B3.css" />
+	
+	<!-- bootstrap css file -->
+	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+	
+	<!-- fontawesome css file -->
+	<!-- <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> -->
+	
+	<!-- leaflet css -->
+	<!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" /> -->
+    <link rel="stylesheet" href="css/nav.css"/>
+	<!-- custom css -->
+    <style type="text/css">
+			
+		html,body {
+			background-color: #333;
+			color: #fff;
+			font-family: 'Sentinel A', 'Sentinel B';
+			font-family: 'Tungsten A', 'Tungsten B';
+			font-family: 'Whitney SSm A', 'Whitney SSm B';
+			margin: 0;
+			padding: 0;
+			font-size: 12pt;
+		}
+
+		#canvas{
+			position: absolute;			
+			left: 0;
+			top: 130;
+			margin: auto;
+		}
+		.modal-content{
+			color:black;
+			padding:20px;
+		}
+		h1{
+			font-family: 'Tungsten A', 'Tungsten B';
+		}
+	</style>
+
+
+	
+</head>
+<body>
+
+
+	<!-- BEGIN social share scripts -->
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/fr_CA/all.js#xfbml=1&status=0";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	<!-- END social share scripts -->
+
+
+	<!-- BEGIN QUEBECOR NAV (see infojdem.com/lib/nav/README.txt) -->
+	<div id='quebecor-nav'>
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<div id="navbar-brand">
+						<a href="http://www.journaldemontreal.com">
+							<img src="img/logo-jdem-horiz.svg" style="height:24px; margin:12px 5px;"/>
+						</a>
+					</div>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<!-- will be populated by infojem sections fetcher plugin -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<!-- END QUEBECOR NAV -->
+	
+	 <div class="container">
+
+      	<div class="row">
+			<!-- start social code -->
+			<div class="col-xs-6 col-sm-2" style="padding-left:0;">
+				<div class="fb-like pull-left" data-href="http://www1.journaldemontreal.com/2014/04/jeu/" data-layout="button_count" data-action="recommend" data-show-faces="true" data-share="false"></div>
+			</div>
+			<div class="col-xs-6 col-sm-2">
+				<span style="margin-left:24px;">
+					<a href="http://www1.journaldemontreal.com/2014/04/jeu/" class="twitter-share-button" data-lang="fr">Tweet</a>
+				</span>
+			</div>
+			<!-- end social code-->
+		</div>
+		
+	 </div>	
+	
+<div id="endModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <h1>BRAVO !</h1>
+	  <p>C’est avec PAULINE MAROIS que vous avez gagné le plus de points !</p>
+	  <p>Mais êtes-vous vraiment péquiste ?</p>
+	  <p>Assez joué, allez maintenant vous informer en consultant <a href='http://www.journaldemontreal.com/elections2014'>notre dossier complet sur les élections</a></p>
+    </div>
+  </div>
+</div>
+
+<canvas id="canvas"></canvas>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<!-- bootstrap js file -->
+	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<!-- underscore javascript utility libirary -->
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+
+	<!--
+<script type="text/javascript" src="lib/impact/impact.js"></script>
+	<script type="text/javascript" src="lib/game/main.js"></script>
+-->
+	<script type="text/javascript" src="game.min.js"></script>
+	<!-- nav -->
+	<script src="vendor/quebecor-nav/nav.js"></script>
+</body>
+</html>
