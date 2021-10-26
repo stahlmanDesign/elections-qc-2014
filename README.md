@@ -1,4 +1,4 @@
-# elections-qc-2014
+# Québec élections 2014
 
 <p>
 <img src="./election.gif"/>
